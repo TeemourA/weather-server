@@ -4,6 +4,8 @@ import path, { dirname } from 'path';
 import express from 'express';
 import hbs from 'hbs';
 
+import { getWeatherDataForLocation } from '../api/index.js';
+
 // @ts-ignore
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -44,18 +46,19 @@ app.get('/help', (req, res) => {
   });
 });
 
-app.get('/weather', (req, res) => {
-  res.send({
-    location: 'Moscow',
-    forecast: 'Sunny',
-    temperature: 11,
-  });
-});
+app.get('/weather', async (req, res) => {
+  if (!req.query.address) {
+    return res.status(400).send({
+      error: 'You have to provide an address',
+    });
+  }
 
-app.get('/products', (req, res) => {
-  res.send({
-    products: [],
-  });
+  try {
+    const data = await getWeatherDataForLocation(req.query.address);
+    res.send({ ...data });
+  } catch (e) {
+    res.status(400).send(e);
+  }
 });
 
 app.get('/help/*', (req, res) => {
