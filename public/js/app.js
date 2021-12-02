@@ -14,18 +14,17 @@ weatherSearchForm.addEventListener('submit', (e) => {
   fetch(`/weather?address=${weatherSearchInput.value}`)
     .then((res) => res.json())
     .then(
-      ({ feelslike, place_name, temperature, weather_descriptions, humidity, error }) => {
+      ({
+        feelslike,
+        place_name,
+        temperature,
+        weather_descriptions,
+        humidity,
+        error,
+      }) => {
         if (error) {
           weatherSearchMessage.textContent = error;
         } else {
-          weatherSearchMessage.textContent = 'Loaded successfully';
-          console.log({
-            feelslike,
-            place_name,
-            temperature,
-            weather_descriptions,
-            error,
-          });
           weatherSearchMessage.textContent = place_name;
           weatherSearchResult.textContent = `Weather conditions: ${weather_descriptions[0]}\n\nTemperature: ${temperature}°C\n\nFeels like: ${feelslike}°C\n\nHumidity: ${humidity}%`;
         }
