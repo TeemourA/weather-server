@@ -5,16 +5,13 @@ const weatherSearchInput = document.querySelector('#weather-search-form input');
 const weatherSearchMessage = document.querySelector('#message');
 const weatherSearchResult = document.querySelector('#result');
 
-// weatherSearchMessage.textContent = 'message';
-// weatherSearchResult.textContent = 'result';
-
 weatherSearchForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   weatherSearchMessage.textContent = 'Loading...';
   weatherSearchResult.textContent = '';
 
-  fetch(`http://localhost:3000/weather?address=${weatherSearchInput.value}`)
+  fetch(`/weather?address=${weatherSearchInput.value}`)
     .then((res) => res.json())
     .then(
       ({ feelslike, place_name, temperature, weather_descriptions, error }) => {
