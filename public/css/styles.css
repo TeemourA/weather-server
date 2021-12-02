@@ -51,6 +51,7 @@ button {
   cursor: pointer;
   border: 1px solid #888;
   background-color: #888;
+  color: white;
   padding: 8px;
 }
 

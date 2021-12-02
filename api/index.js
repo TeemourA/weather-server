@@ -32,10 +32,10 @@ export const getWeatherDataForLocation = async (location) => {
 
     const {
       // @ts-ignore
-      current: { temperature, feelslike, weather_descriptions },
+      current,
     } = await getWeatherData({ lon, lat });
 
-    return { place_name, temperature, feelslike, weather_descriptions };
+    return { place_name, ...current };
   } catch (e) {
     return e;
   }
